@@ -1,5 +1,5 @@
 ---
-title: "Fundamentals of Data Visualization in R"
+title: "Data Visualization"
 output:
   xaringan::moon_reader:
     css: ["style.css", "default"]
@@ -38,13 +38,6 @@ nhanes <- read_csv(here("data/nhanes.csv")) %>%
 ```
 
 
-
-# An Important Workflow Tip
-
-![](images/dont-load-data.png)
-
----
-
 class: inverse, center, middle, dk-section-title
 
 # Grammar of Graphics
@@ -52,18 +45,6 @@ class: inverse, center, middle, dk-section-title
 ---
 
 ## Grammar of Graphics
-
-![](images/grammar-of-graphics.png)
-
-<!-- --- -->
-
-<!-- class: middle -->
-
-<!-- <p style="font-size: 150%";> -->
-<!-- The grammar of graphics is based on the insight that you can uniquely describe <i>any</i> plot as a combination of a dataset, a geom, a set of mappings, a stat, a position adjustment, a coordinate system, and a faceting scheme. -->
-<!-- </p> -->
-
-<!-- &mdash; Garrett Grolemund and Hadley Wickham in [R for Data Science](https://r4ds.had.co.nz/data-visualisation.html#the-layered-grammar-of-graphics) -->
 
 
 ---

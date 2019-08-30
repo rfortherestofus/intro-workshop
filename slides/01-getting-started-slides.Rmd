@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with R"
+title: "Introduction to R Workshop"
 author: "R for the Rest of Us"
 output:
   xaringan::moon_reader:
@@ -19,8 +19,6 @@ output:
 
 
 ```{r packages, include = F, eval = T}
-
-
 library(tidyverse)
 library(skimr)
 library(janitor)
@@ -28,17 +26,134 @@ library(DT)
 library(here)
 library(kableExtra)
 library(knitr)
-
-
 ```
+
+class: center, middle, inverse, dk-section-title
+
+# Introductions
+
+---
+
+# Introductions
+
+1. Name 
+
+--
+
+1. Organization
+
+--
+
+1. Why you want to learn R
+
+--
+
+1. Share a **boring** fact about yourself
+
+
+---
+
+# Agenda
+
+1. Logistics
+
+--
+
+1. Getting Started with R
+
+--
+
+1. RMarkdown
+
+--
+
+1. Break
+
+--
+
+1. Data Wrangling and Analysis
+
+--
+
+1. Data Visualization
+
+---
+
+class: center, middle, inverse, dk-section-title
+
+# Logistics
+
+
+---
+
+## Code of Conduct
+
+I am dedicated to providing a harassment-free experience for everyone, regardless of gender, gender identity and expression, age, sexual orientation, disability, physical appearance, body size, race, ethnicity, religion (or lack thereof), or technology choices. I do not tolerate harassment of other students in any form. Sexual language and imagery is not appropriate. Participants violating these rules may be sanctioned or expelled from the group and/or courses they are signed up for without a refund.
+
+Harassment includes offensive verbal comments related to gender, gender identity and expression, age, sexual orientation, disability, physical appearance, body size, race, ethnicity, religion, technology choices, sexual images in public spaces, deliberate intimidation, stalking, following, and unwelcome sexual attention.
+
+---
+
+## Sticky Notes
+
+.pull-left[
+<div class="sticky-good">
+I'm good
+</div>
+]
+
+
+.pull-right[
+<div class="sticky-stuck">
+I'm stuck
+</div>
+]
+
+---
+
+## Stuck? Talk With a Neighbor
+
+--
+
+.center[
+![](images/talk-with-neighbor.png)
+]
+
+---
+
+
+
+## This is Hard and That's Ok
+
+--
+
+<p class="large">It’s easy when you start out programming to get really frustrated and think, “Oh it’s me, I’m really stupid,” or, “I’m not made out to program.”</p> 
+
+--
+
+<p class="large">But, that is absolutely not the case. Everyone gets frustrated. I still get frustrated occasionally when writing R code. It’s just a natural part of programming. So, it happens to everyone and gets less and less over time.</p>
+
+--
+
+<p class="large">Don’t blame yourself. Just take a break, do something fun, and then come back and try again later.</p>
+
+---
+
+class: center, middle, dk-section-title
+
+background-image: url("images/hadley-wickham.jpg")
+
+???
+Source: (https://r-posts.com/advice-to-young-and-old-programmers-a-conversation-with-hadley-wickham/) 
+
+---
+
 
 class: center, middle, dk-section-title
 
 background-image: url("images/installation.jpeg")
 
 # Installation
-
-
 
 ---
 
@@ -69,27 +184,8 @@ The first thing you need to do is download the R software. Go to the [Comprehens
 
 ---
 
-class:inverse
-
-### Your Turn
-
-1. Download and Install R
-
---
-
-1. Open R
-
---
-
-1. Use any mathematical operators (+, -, /, and *) to create an expression and make sure it works as expected
-
-
----
-
 
 ## RStudio
-
---
 
 .center[
 ![](images/engine-dashboard.png)
@@ -118,6 +214,12 @@ Download RStudio at the [RStudio website](https://www.rstudio.com/products/rstud
 ---
 
 
+## RStudio Cloud
+
+![](images/rstudio-cloud.png)
+
+---
+
 ### Tour of RStudio
 
 .center[
@@ -126,21 +228,6 @@ Download RStudio at the [RStudio website](https://www.rstudio.com/products/rstud
 
 
 
----
-
-class:inverse
-
-### Your Turn
-
-1. Download and Install RStudio
-
---
-
-1. Open RStudio
-
---
-
-1. Working in the console pane, use any mathematical operators (+, -, /, and *) to create an expression and make sure it works as expected
 
 ---
 
@@ -182,59 +269,6 @@ Projects allow you to keep a collection of files all together, including:
 .center[
 ![](images/rstudio-panes.png)
 ]
-
----
-
-
-### How to Create a Project
-
-
-1. File -> New Project
-
---
-
-2. Quit RStudio, Double-click .Rproj file to reopen project
-
----
-
-class:inverse
-
-### Your Turn
-
-1. Create a new project (doesn't matter if it's in a new or existing directory)
-
---
-
-2. Quit RStudio, double-click the .Rproj file and reopen your project
-
----
-
-
-class: center, middle, dk-section-title
-
-background-image: url("images/download-course-project.jpeg")
-
-# Download Course Project
-
----
-
-class: inverse
-
-## Your Turn
-
---
-
-Enter the following into the RStudio console pane:
-
-```{r eval = F}
-install.packages("usethis")
-library(usethis)
-use_course("http://bit.ly/getting-started-with-r")
-```
-
-???
-
-You'll now have a copy of the project created for this course that we'll use from here on out
 
 ---
 
@@ -314,7 +348,7 @@ Do them for others, and for your future self.
 
 ```{r eval = F}
 
-# This is a comment
+# Show the first 5 rows of my data
 
 head(data, n = 5)
 
@@ -445,19 +479,16 @@ class:inverse
 
 ## Your Turn
 
-1. Open the project you downloaded before (it should be on your desktop)
+
+1. Open the 01-getting-started-exercises.R file
 
 --
 
-1. Open the exercises.R file
+1. Install the `tidyverse` and `skimr` packages using the install.packages function
 
 --
 
-1. Install the tidyverse and skimr packages using the install.packages function
-
---
-
-1. Load the tidyverse and skimr packages using the library function
+1. Load the `tidyverse` and `skimr` packages using the library function
 
 ---
 
@@ -551,15 +582,12 @@ faketucky <- read_csv("faketucky.csv")
 
 --
 
-If the data file is not in the working directory, you need to specify full path name. 
-
---
-
-When specifying the path name use of forward slash (“/”) not backslash (“\”).
+If the data file is not in the working directory, you need to specify full path name, using the forward slash (“/”).
 
 ```{r}
 faketucky <- read_csv("data/faketucky.csv")
 ```
+
 
 ---
 
@@ -576,7 +604,7 @@ class:inverse
 
 ## Your Turn
 
-1. Open the exercises.R file
+1. Open the 01-getting-started-exercises.R file
 
 --
 
@@ -712,13 +740,10 @@ tail(faketucky, 5)
 
 ---
 
-## `View`
+## RStudio Viewer
 
-`View` (note capital V) opens the RStudio viewer (or click on a data frame in the environment pane).
+Click on a data frame in the environment pane to open it
 
-```{r paged.print = F}
-View(faketucky)
-```
 
 ---
 
@@ -752,7 +777,7 @@ class:inverse
 
 --
 
-1. Follow the instructions to use the `head()`, `tail()`, `View()`, and `skim()` functions to examine your data.
+1. Follow the instructions to use the `head()`, `tail()`, and `skim()` functions to examine your data.
 
 ---
 
@@ -884,8 +909,9 @@ cols(
 
 - **Character** (e.g. "Male")
 
-.small[There are [many other data types in R](https://www.statmethods.net/input/datatypes.html) that we won't discuss in this course.
-]
+--
+
+There are [many other data types in R](https://www.statmethods.net/input/datatypes.html) that we won't discuss in this course.
 
 ---
 
@@ -965,23 +991,5 @@ Use the ? to get help about anything you're confused about
 ## Package Vignettes
 
 [![](images/skimr-vignette.gif)](https://cran.r-project.org/web/packages/skimr/vignettes/Using_skimr.html)
-
----
-
-## Twitter
-
-[![](images/rstats-twitter.gif)](https://twitter.com/search?q=%23rstats)
-
----
-
-## R for Data Science Community
-
-[![](images/r4ds-website.png)](https://www.rfordatasci.com/)
-
----
-
-## Google
-
-[![](images/programming-google.png)](https://twitter.com/ekaleedmiston/status/1081221822186696706)
 
 
