@@ -18,11 +18,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Load Packages
 
-Let's load the packages we need. These include `tidyverse` (especially the `dplyr` package) and `janitor`. 
+Let's load the `tidyverse` package. 
 
 ```{r}
-library(tidyverse)
-library(janitor)
+
 ```
 
 # Import NHANES Data
@@ -30,7 +29,7 @@ library(janitor)
 Let's import our data using `read_csv`. 
 
 ```{r}
-nhanes <- read_csv("data/nhanes.csv") 
+
 ```
 
 # ggplot template
