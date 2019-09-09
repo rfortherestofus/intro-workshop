@@ -111,6 +111,12 @@ I'm stuck
 
 ---
 
+## Communal Notes
+
+Take notes together at https://rfortherestofus.com/workshop-notes/
+
+---
+
 ## Stuck? Talk With a Neighbor
 
 --
@@ -226,6 +232,24 @@ Download RStudio at the [RStudio website](https://www.rstudio.com/products/rstud
 ![](images/rstudio-panes.png)
 ]
 
+---
+
+
+class: inverse
+
+### Download Course Project
+
+This is only if, for some reason, someone can't get RStudio Cloud working.
+
+--
+
+Enter the following into the console pane:
+
+```{r eval = F}
+install.packages("usethis")
+library(usethis)
+use_course("https://rfortherestofus.com/workshop-materials/")
+```
 
 
 
