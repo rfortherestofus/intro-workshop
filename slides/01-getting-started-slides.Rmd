@@ -86,14 +86,6 @@ class: center, middle, inverse, dk-section-title
 
 ---
 
-## Code of Conduct
-
-I am dedicated to providing a harassment-free experience for everyone, regardless of gender, gender identity and expression, age, sexual orientation, disability, physical appearance, body size, race, ethnicity, religion (or lack thereof), or technology choices. I do not tolerate harassment of other students in any form. Sexual language and imagery is not appropriate. Participants violating these rules may be sanctioned or expelled from the group and/or courses they are signed up for without a refund.
-
-Harassment includes offensive verbal comments related to gender, gender identity and expression, age, sexual orientation, disability, physical appearance, body size, race, ethnicity, religion, technology choices, sexual images in public spaces, deliberate intimidation, stalking, following, and unwelcome sexual attention.
-
----
-
 ## Sticky Notes
 
 .pull-left[
@@ -108,12 +100,6 @@ I'm good
 I'm stuck
 </div>
 ]
-
----
-
-## Communal Notes
-
-Take notes together at https://rfortherestofus.com/workshop-notes/
 
 ---
 
@@ -173,24 +159,6 @@ The first thing you need to do is download the R software. Go to the [Comprehens
 ---
 
 
-### Working Directly in R
-
-![](images/r-console.png)
-
-
----
-
-### Working Directly in R
-
-1. Enter: 2 + 2
-
-2. Hit return
-
-3. View result
-
----
-
-
 ## RStudio
 
 .center[
@@ -198,14 +166,6 @@ The first thing you need to do is download the R software. Go to the [Comprehens
 
 .small[Courtesy [Modern Dive](http://moderndive.com/2-getting-started.html#what-are-r-and-rstudio)]
 ]
-
----
-
-### RStudio
-
-If you use RStudio, you’ll have a graphical user interface, the ability to see all of your stored information, and much more.
-
-![](images/rstudio-screenshot.png)
 
 
 ---
@@ -606,12 +566,17 @@ faketucky <- read_csv("faketucky.csv")
 
 --
 
-If the data file is not in the working directory, you need to specify full path name, using the forward slash (“/”).
+If the data file is not in the working directory, you need to specify full path name.
 
 ```{r}
 faketucky <- read_csv("data/faketucky.csv")
 ```
 
+--
+
+.dk-highlight-box[
+*Using an RStudio project sets your working directory to the folder where your project lives so you only need to specify the location relative to that (i.e. you don't have to type "home/user/davidkeyes/documents/work/r/intro-workshop/data/faketucky.csv")*
+]
 
 ---
 
@@ -686,7 +651,10 @@ John Chambers, quoted in [Hadley Wickham's Advanced R](http://adv-r.had.co.nz/Fu
 
 --
 
-We assign the result of the `read_csv` **function** to the `faketucky` **object**
+.dk-highlight-box[
+We assign the result of the `read_csv` **function** to the `faketucky` **object***
+]
+
 ---
 class: center, middle, dk-section-title
 
@@ -718,49 +686,6 @@ faketucky
 faketucky
 ```
 
----
-
-## `head`
-
-`head` shows us the first X rows. 
-```{r}
-head(faketucky, 5)
-```
-
---
-
-```{r eval = T, paged.print = F, echo = F}
-head(faketucky, 5)
-```
-
----
-
-## `head`
-
-```{r}
-head(faketucky, 5)
-```
-
---
-
-.dk-highlight-box[
-`faketucky` and the number 5 here are **arguments**.
-]
-
----
-
-## `tail`
-
-`tail` shows us the last X rows. 
-```{r}
-tail(faketucky, 5)
-```
-
---
-
-```{r eval = T, paged.print = F, echo = F}
-tail(faketucky, 5)
-```
 
 ---
 
@@ -797,11 +722,11 @@ class:inverse
 
 ## Your Turn
 
-1. Open the file exercises.R
+1. Open the file 01-getting-started-exercises.R
 
 --
 
-1. Follow the instructions to use the `head()`, `tail()`, and `skim()` functions to examine your data.
+1. Follow the instructions to examine your data.
 
 ---
 
@@ -976,11 +901,19 @@ class:inverse
 
 ## Your Turn
 
-1. Open the file exercises.R and change the code so that you correctly import the `faketucky` data frame, telling `read_csv` which data is missing and explictly defining column types where necessary.
+Open the file exercises.R and change the code so that you correctly import the `faketucky` data frame, telling `read_csv` which data is missing and explictly defining column types where necessary.
+
+```{r}
+faketucky <- read_csv(here("data/faketucky.csv"),
+                     na = "TEXTYOUWANTTOBENA",
+                     col_types = list(VARIABLE1 = col_character(),
+                                      VARIABLE2 = col_character()))
+```
+
 
 --
 
-1. After you make changes to how you import your data, rerun the code in the Examine Data section to make sure everything worked!
+After you make changes to how you import your data, rerun the code in the Examine Data section to make sure everything worked!
 
 ---
 

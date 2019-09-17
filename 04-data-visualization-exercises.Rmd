@@ -137,7 +137,7 @@ Use the code chunk from above and do the following:
 
 # Themes
 
-Install and load the [`hrbrthemes` package](https://hrbrmstr.github.io/hrbrthemes/index.html). It's a package that provides some great default themes. I've installed it for you so you just need to load it.
+Load the [`hrbrthemes` package](https://hrbrmstr.github.io/hrbrthemes/index.html). It's a package that provides some great default themes. I've installed it for you so you just need to load it.
 
 
 ```{r}

@@ -42,6 +42,11 @@ Every RMarkdown document has the following:
 
 ![](images/rmarkdown-overview.png)
 
+---
+
+## Knitting (aka Export)
+
+![](images/knit.gif)
 
 ---
 class:inverse
@@ -263,24 +268,15 @@ class: inverse
 
 ![](images/code-chunk.png)
 
+
+
 ---
 
 ## Code Chunks
 
 They start with three backticks and {r} and end with three backticks. 
 
-.dk-smaller[
-![](images/reunion-map-code-chunk.png)
-]
-
-
-
----
-
-## Code Chunks
-
 .pull-left[
-**Code Chunk**
 
 
 ![](images/reunion-map-code-chunk.png)
@@ -289,7 +285,6 @@ They start with three backticks and {r} and end with three backticks.
 --
 
 .pull-right[
-**Output**
 
 ![](images/reunion-map.png)
 ]
@@ -410,3 +405,14 @@ class: inverse
 1. Change the chunk options in the cars code chunk so that `include = FALSE`. Knit your report and notice what is different.
 
 1. Add a new code chunk (don't worry about naming it). In it, load the package `skimr` (hint: use the `library` function). Then, use the `skim` function that you learned about in the Getting Started course to skim the `cars` data frame. Knit your report to see the output. 
+
+
+---
+
+## My Setup Code Chunk
+
+99% of the time, this is what it looks like:
+
+![](images/my-setup-code-chunk.png)
+
+

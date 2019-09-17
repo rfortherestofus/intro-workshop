@@ -50,6 +50,7 @@ Over the next few days, I'll send you resources to help you continue to make pro
 
 [![](images/r4ds-website.png)](https://www.rfordatasci.com/)
 
+
 ---
 
 ## Google

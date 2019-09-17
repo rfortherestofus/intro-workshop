@@ -18,10 +18,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Load Packages
 
-Let's load the `tidyverse` package.  `janitor`. 
+Let's load the `tidyverse` package.  
 
 ```{r}
-
+library(tidyverse)
 ```
 
 # Import NHANES Data
@@ -29,13 +29,13 @@ Let's load the `tidyverse` package.  `janitor`.
 Let's import our data using `read_csv`. Note that the NHANES data is in the data directory so we need to include that.
 
 ```{r}
-
+nhanes <- read_csv("data/nhanes.csv")
 ```
 
 Let's see what our data looks like.
 
 ```{r}
-
+nhanes
 ```
 
 
@@ -47,31 +47,24 @@ Let's see what our data looks like.
 With `select` we can select variables from the larger data frame.
 
 ```{r}
-
+nhanes %>% 
+  select(age)
 ```
 
 
 We can also use `select` for multiple variables:
 
 ```{r}
-
+nhanes %>% 
+  select(age, education)
 ```
-
-
-Used within `select`, the `contains` function selects variable with certain text in the variable name:
-
-
-```{r}
-
-```
-
 
 
 We can `select` a range of columns using the var1:var2 pattern
 
-
 ```{r}
-
+nhanes %>% 
+  select(phys_active:smoke_now)
 ```
 
 
@@ -79,16 +72,15 @@ We can drop variables using the -var format:
 
 
 ```{r}
-
+nhanes %>% 
+  select(-id)
 ```
-
-
 
 We can drop a set of variables using the -(var1:var2) format:
 
-
 ```{r}
-
+nhanes %>% 
+  select(-(id:age_decade))
 ```
 
 # mutate
@@ -103,19 +95,26 @@ Create a **new variable with a specific value**
 
 ```{r}
 # Make country variable
+nhanes %>% 
+  mutate(country = "United States") %>% 
+  select(country)
 ```
 
 
 Create a **new variable based on other variables**
 
 ```{r}
-# Make height_inches variable
+nhanes %>% 
+  mutate(height_inches = height / 2.54) %>% 
+  select(height, height_inches)
 ```
 
 Change an **existing variable**
 
 ```{r}
-# Round bmi variable
+nhanes %>% 
+  mutate(height = height / 2.54) %>% 
+  select(height)
 ```
 
 
@@ -133,7 +132,8 @@ tibble::tribble(
   ">", "greater than", "x > y",
   ">=", "greater than or equal to", "x >= y",
   "==", "exactly equal to", "x == y",
-  "!=", "not equal to", "x != y"
+  "!=", "not equal to", "x != y",
+  "%in%", "group membership", "x %in% y",
 )
 ```
 
@@ -145,17 +145,21 @@ tibble::tribble(
 
 We use `filter` to choose a subset of observations.
 
-We use `==` to select all observations that meet the criteria.
+We use `==` to filter all observations that meet the criteria.
 
 
 ```{r}
-# Filter to only keep females
+nhanes %>% 
+  filter(gender == "female") %>% 
+  select(gender)
 ```
 
 We use `!=` to select all observations that don't meet the criteria.
 
 ```{r}
-# Filter to only keep people who are not white
+nhanes %>% 
+  filter(work != "Working") %>% 
+  select(work)
 ```
 
 
@@ -163,22 +167,28 @@ We use `!=` to select all observations that don't meet the criteria.
 We can use `%in%` to only include responses that much a group. 
 
 ```{r}
-# Filter to keep only those whose health_gen is Good, Vgood, or Excellent
+nhanes %>% 
+  filter(health_gen %in% c("Good", "Vgood", "Excellent")) %>% 
+  select(health_gen)
 ```
 
 
 We can chain together multiple `filter` functions. 
 
 ```{r}
-# Filter to keep only males
-# Filter to keep only those whose health_gen is Good, Vgood, or Excellent
+nhanes %>% 
+  filter(gender == "male") %>% 
+  filter(health_gen %in% c("Good", "Vgood", "Excellent")) %>% 
+  select(gender, health_gen)
 ```
 
 
 We can use `<`, `>`, `<=`, and `=>` for numeric data.
 
 ```{r}
-# Filter to keep those who are 50+ years old
+nhanes %>% 
+  filter(age >= 50) %>% 
+  select(age)
 ```
 
 
@@ -209,25 +219,34 @@ tibble::tribble(
 ```
 
 
-Let's calcualte the mean number of days in which respondents report being physically active
-```{r}
+Let's calculate the mean number of days in which respondents report being physically active.
 
+```{r}
+nhanes %>% 
+  summarize(mean_days_phys_active = mean(phys_active_days))
 ```
 
 This doesn't work! Notice what the result is. 
 
 We need to add `na.rm = TRUE` to tell R to drop `NA` values.
 
-
 ```{r}
-
+nhanes %>% 
+  summarize(mean_days_phys_active = mean(phys_active_days,
+                                         na.rm = TRUE))
 ```
 
 
 We can have multiple arguments in each usage of `summarize`. Let's add the median along with the mean.
 
 ```{r}
-
+nhanes %>% 
+  drop_na(phys_active_days) %>%
+  summarize(mean_days_phys_active = mean(phys_active_days,
+                                         na.rm = TRUE),
+            median_days_phys_active = median(phys_active_days,
+                                             na.rm = TRUE),
+            number_of_responses = n())
 ```
 
 
@@ -242,13 +261,19 @@ We can have multiple arguments in each usage of `summarize`. Let's add the media
 
 
 ```{r}
-
+nhanes %>% 
+  group_by(age_decade) %>%
+  summarize(mean_active_days = mean(phys_active_days,
+                                    na.rm = TRUE))
 ```
 
 We can use `group_by` with multiple groups. Let's calculate the mean number of active days for each year the survey was done and for gender.
 
 ```{r}
-
+nhanes %>% 
+  group_by(survey_yr, gender, education) %>% 
+  summarize(mean_active_days = mean(phys_active_days,
+                                    na.rm = TRUE))
 ```
 
 
@@ -266,18 +291,18 @@ nhanes %>%
   filter(gender == "female") %>% 
   mutate(height_inches = height / 2.54) %>% 
   group_by(age_decade) %>% 
-  summarize(height_inches = mean(height_inches,
+  summarize(mean_height_inches = mean(height_inches,
                                     na.rm = TRUE)) 
 ```
 
 This assigns that output to a new data frame.
 
 ```{r}
-nhanes %>% 
+female_height_by_age <- nhanes %>% 
   filter(gender == "female") %>% 
   mutate(height_inches = height / 2.54) %>% 
   group_by(age_decade) %>% 
-  summarize(height_inches = mean(height_inches,
+  summarize(mean_height_inches = mean(height_inches,
                                     na.rm = TRUE)) 
 ```
 

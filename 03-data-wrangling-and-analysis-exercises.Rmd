@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Load Packages
 
-Load the `tidyverse` and `janitor` packages.
+Load the `tidyverse` package. 
 
 ```{r}
 # YOUR CODE HERE
@@ -25,10 +25,14 @@ Load the `tidyverse` and `janitor` packages.
 
 # Import NHANES Data
 
-Import the NHANES data to a data frame called `nhanes`. Then, use the `clean_names` function to create clean names for all of your variables.
+Import the NHANES data to a data frame called `nhanes`. 
 
 ```{r}
 # YOUR CODE HERE
+
+read_csv("data/nhanes.csv") -> nhanes
+
+nhanes <- read_csv("data/nhanes.csv")
 ```
 
 
@@ -55,17 +59,6 @@ Use `select` to show `marital_status` and `education`.
 # YOUR CODE HERE
 ```
 
-
-Used within `select`, the `contains` function selects variable with certain text in the variable name. 
-
-Use the `contains` function to select variables that ask how many days in the last 30 days the respondent had bad physical and mental health (you should be able to figure out which variables these are from the names). 
-
-
-```{r}
-# YOUR CODE HERE
-```
-
-
 We can `select` a range of columns using the var1:var2 pattern. `select` all the variables from `health_gen` to the end.
 
 
@@ -73,16 +66,12 @@ We can `select` a range of columns using the var1:var2 pattern. `select` all the
 # YOUR CODE HERE
 ```
 
-
-
 We can drop variables using the -var format. Drop the `education` variable.
 
 
 ```{r}
 # YOUR CODE HERE
 ```
-
-
 
 We can drop a set of variables using the -(var1:var2) format. Drop the variables from `health_gen` to the end.
 
@@ -116,7 +105,7 @@ Create a new variable called `pct_days_phys_health_bad` and calculate it as the 
 
 Change an **existing variable**
 
-Round the `height` variable to a whole number. Then, use `select` to show only the `height` variable.
+Convert the `weight` variable to pounds by multiplying by 2.205 (it's in kilograms now). Then, use `select` to show only the `weight` variable.
 
 ```{r}
 # YOUR CODE HERE
@@ -141,7 +130,6 @@ Use `filter` to keep only respondents who are **not** divorced. Then, use `selec
 ```{r}
 # YOUR CODE HERE
 ```
-
 
 
 Use `%in%` within the `filter` function to keep only those who are divorced, separated, or widowed. Then, use `select` to show only the `marital_status` variable.
@@ -224,7 +212,6 @@ Create a chain that starts with your `nhanes` data frame, does the following, an
 1. Uses `filter` to only include those age 30 or older
 2. Uses `group_by` to create a male and female group
 3. Uses `summarize` to calculate a new variable called `mean_bad_mental_health_days` for males and females
-4. Uses `mutate` to round `mean_bad_mental_health_days` to one decimal place
 
 ```{r}
 # YOUR CODE HERE
