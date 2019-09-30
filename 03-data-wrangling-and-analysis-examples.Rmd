@@ -241,7 +241,6 @@ We can have multiple arguments in each usage of `summarize`. Let's add the media
 
 ```{r}
 nhanes %>% 
-  drop_na(phys_active_days) %>%
   summarize(mean_days_phys_active = mean(phys_active_days,
                                          na.rm = TRUE),
             median_days_phys_active = median(phys_active_days,

@@ -29,10 +29,6 @@ Import the NHANES data to a data frame called `nhanes`.
 
 ```{r}
 # YOUR CODE HERE
-
-read_csv("data/nhanes.csv") -> nhanes
-
-nhanes <- read_csv("data/nhanes.csv")
 ```
 
 

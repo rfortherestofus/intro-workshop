@@ -108,13 +108,13 @@ Make your scatterplot from before that shows weight on the x axis and height on 
 
 ## color
 
-Take your scatterplot that you just made and add a scale using `scale_fill_viridis_d`. 
+Take your scatterplot that you just made and add a scale using `scale_color_viridis_d`. 
 
 ```{r}
 # YOUR CODE HERE
 ```
 
-Do nearly the same thing to change the color of the last bar chart you made (the one about sleep and gender). 
+Do nearly the same thing to change the color of the last bar chart you made (the one about sleep and gender). You will have to use `scale_fill_viridis_d`. 
 
 ```{r}
 # YOUR CODE HERE 
