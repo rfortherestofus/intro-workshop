@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Load the `tidyverse` package. 
 
 ```{r}
-# YOUR CODE HERE
+library(tidyverse)
 ```
 
 # Import NHANES Data
@@ -28,7 +28,7 @@ Load the `tidyverse` package.
 Import the NHANES data to a data frame called `nhanes`. 
 
 ```{r}
-# YOUR CODE HERE
+nhanes <- read_csv("data/nhanes.csv")
 ```
 
 
@@ -42,7 +42,8 @@ With `select` we can select variables from the larger data frame.
 Use `select` to show just the `marital_status` variable.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    select(marital_status)
 ```
 
 
@@ -52,28 +53,44 @@ We can also use `select` for multiple variables.
 Use `select` to show `marital_status` and `education`.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    select(marital_status, education)
 ```
 
 We can `select` a range of columns using the var1:var2 pattern. `select` all the variables from `health_gen` to the end.
 
 
 ```{r}
-# YOUR CODE HERE
+# You can do this in two ways. You can do it by selecting from health_gen to the last variable, which is smoke_now.
+
+nhanes %>% 
+    select(health_gen:smoke_now)
+
+# You can also do this by using the last_col() function, which returns the name of the last column.
+
+nhanes %>% 
+    select(health_gen:last_col())
 ```
 
 We can drop variables using the -var format. Drop the `education` variable.
 
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    select(-education)
 ```
 
 We can drop a set of variables using the -(var1:var2) format. Drop the variables from `health_gen` to the end.
 
 
 ```{r}
-# YOUR CODE HERE
+# Again, two options
+
+nhanes %>% 
+    select(-(health_gen:smoke_now))
+
+nhanes %>% 
+    select(-(health_gen:last_col()))
 ```
 
 # mutate
@@ -87,7 +104,9 @@ Create a **new variable with a specific value**
 Create a new variable called `completed_survey` and make all responses to it "Yes". If you want to see this variable easily, add a line where you select only the `completed_survey` variable. Don't forget the pipe (%>%)!
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    mutate(completed_survey = "Yes") %>% 
+    select(completed_survey)
 ```
 
 
@@ -96,7 +115,9 @@ Create a **new variable based on other variables**
 Create a new variable called `pct_days_phys_health_bad` and calculate it as the percentage of self-reported days of bad physical health in the last 30 days. Remember that the `days_phys_hlth_bad` variable is a measure of the **number** of self-reported days of bad physical health in the last 30 days. Then, use `select` to show the `days_phys_hlth_bad` and `pct_days_phys_health_bad` variables.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    mutate(pct_days_phys_health_bad = days_phys_hlth_bad / 30) %>% 
+    select(days_phys_hlth_bad, pct_days_phys_health_bad)
 ```
 
 Change an **existing variable**
@@ -104,7 +125,9 @@ Change an **existing variable**
 Convert the `weight` variable to pounds by multiplying by 2.205 (it's in kilograms now). Then, use `select` to show only the `weight` variable.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    mutate(weight = weight * 2.205) %>% 
+    select(weight)
 ```
 
 
@@ -118,26 +141,35 @@ We use `filter` to choose a subset of cases.
 Use `filter` to keep only respondents who are divorced. Then, use `select` to show only the `marital_status` variable.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    filter(marital_status == "Divorced") %>% 
+    select(marital_status)
 ```
 
 Use `filter` to keep only respondents who are **not** divorced. Then, use `select` to show only the `marital_status` variable.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    filter(marital_status != "Divorced") %>% 
+    select(marital_status)
 ```
 
 
 Use `%in%` within the `filter` function to keep only those who are divorced, separated, or widowed. Then, use `select` to show only the `marital_status` variable.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    filter(marital_status %in% c("Divorced", "Separated", "Widowed")) %>% 
+    select(marital_status)
 ```
 
 Create a chain that keeps only those are college grads (line #1). Then, `filter` to keep only those who are divorced, separated, or widowed. Finally, use `select` to show only the `education` and `marital_status` variables.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    filter(education == "College Grad") %>% 
+    filter(marital_status %in% c("Divorced", "Separated", "Widowed")) %>% 
+    select(education, marital_status)
 ```
 
 
@@ -147,7 +179,9 @@ We can use `<`, `>`, `<=`, and `>=` for numeric data.
 Use `filter` to only show those who reported at least 5 days of physical activity in the last 30 days (this is the `phys_active_days` variable). Then, use `select` to keep only the `phys_active_days` variable.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    filter(phys_active_days >= 5) %>% 
+    select(phys_active_days)
 ```
 
 
@@ -162,7 +196,9 @@ With `summarize`, we can go from a complete dataset down to a summary.
 Get the mean hours of sleep per night that respondents say they get.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    summarize(mean_sleep = mean(sleep_hrs_night,
+                                na.rm = TRUE))
 ```
 
 
@@ -171,7 +207,13 @@ We can have multiple arguments in each usage of `summarize`.
 In addition to calculating the mean hours of sleep per night, calculate the minimum and maximum hours of sleep that respondents reported.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    summarize(mean_sleep = mean(sleep_hrs_night,
+                                na.rm = TRUE),
+              min_sleep = min(sleep_hrs_night,
+                                na.rm = TRUE),
+              max_sleep = max(sleep_hrs_night,
+                                na.rm = TRUE))
 ```
 
 
@@ -187,7 +229,10 @@ In addition to calculating the mean hours of sleep per night, calculate the mini
 Calculate the mean hours of sleep for females and males using `group_by` and `summarize`.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    group_by(gender) %>% 
+    summarize(mean_sleep = mean(sleep_hrs_night,
+                                na.rm = TRUE))
 ````
 
 We can use `group_by` with multiple groups.
@@ -195,7 +240,10 @@ We can use `group_by` with multiple groups.
 Use `group_by` for `gender` and `work` (whether or not respondents are working) before calculating mean hours of sleep.
 
 ```{r}
-# YOUR CODE HERE
+nhanes %>% 
+    group_by(gender, work) %>% 
+    summarize(mean_sleep = mean(sleep_hrs_night,
+                                na.rm = TRUE))
 ```
 
 
@@ -210,7 +258,11 @@ Create a chain that starts with your `nhanes` data frame, does the following, an
 3. Uses `summarize` to calculate a new variable called `mean_bad_mental_health_days` for males and females that calculates the mean number of days of bad mental health (the variable is `days_ment_hlth_bad`).
 
 ```{r}
-# YOUR CODE HERE
+mental_health_over_30 <- nhanes %>% 
+    filter(age >= 30) %>% 
+    group_by(gender) %>% 
+    summarize(mean_bad_mental_health_days = mean(days_ment_hlth_bad,
+                                                 na.rm = TRUE))
 ```
 
 
