@@ -212,12 +212,12 @@ Text with **some words in bold** and *some words in italics*
 
 ```
 
-- Bulleted list item #1
-- Bulleted list item #2
+- Unordered bulleted list item
+- Unordered bulleted list item
 
 
-1. Numbered list item #1
-1. Numbered list item #2
+1. Numbered list item
+1. Numbered list item
 ```
 ]
 
