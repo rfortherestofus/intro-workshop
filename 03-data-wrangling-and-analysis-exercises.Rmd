@@ -213,5 +213,175 @@ Create a chain that starts with your `nhanes` data frame, does the following, an
 # YOUR CODE HERE
 ```
 
+# Crosstabs
+
+The `tabyl` function in the `janitor` package is mostly used for crosstabs, but you can use it to do frequencies.
+
+```{r}
+nhanes %>% 
+  tabyl(age_decade)
+```
+
+To do a crosstab, you just add another variable.
+
+```{r}
+nhanes %>% 
+  tabyl(age_decade, gender) 
+```
+
+
+`janitor` has a set of functions that all start with `adorn_` that add a number of things to our crosstabs. We call them after `tabyl`. For example, `adorn_totals`.
+
+```{r}
+nhanes %>% 
+  tabyl(age_decade, gender) %>% 
+  adorn_totals(where = c("row", "col"))
+```
+
+
+We can add `adorn_percentages` to add percentages.
+
+
+```{r}
+nhanes %>% 
+  tabyl(age_decade, gender) %>% 
+  adorn_totals(where = c("row", "col")) %>% 
+  adorn_percentages()
+```
+
+
+
+We can then format these percentages using `adorn_pct_formatting`.
+
+```{r}
+nhanes %>% 
+  tabyl(age_decade, gender) %>% 
+  adorn_totals(where = c("row", "col")) %>% 
+  adorn_percentages() %>% 
+  adorn_pct_formatting(digits = 0,
+                       rounding = "half up") 
+```
+
+
+
+If we want to include the n alongside percentages, we can use `adorn_ns`.
+
+```{r}
+nhanes %>% 
+  tabyl(age_decade, gender) %>% 
+  adorn_totals(c("row", "col")) %>% 
+  adorn_percentages() %>% 
+  adorn_pct_formatting(digits = 0,
+                       rounding = "half up") %>% 
+  adorn_ns()
+```
+
+
+
+We can add titles to our crosstabs using `adorn_title`. 
+
+```{r}
+nhanes %>% 
+  tabyl(age_decade, gender) %>% 
+  adorn_totals(c("row", "col")) %>% 
+  adorn_percentages() %>% 
+  adorn_pct_formatting() %>% 
+  adorn_ns() %>% 
+  adorn_title(placement = "combined")
+```
+
+
+
+
+We can also do three (or more) way crosstabs automatically by adding more variables to the `tabyl` function.
+
+```{r}
+nhanes %>% 
+  tabyl(age_decade, gender, education) %>% 
+  adorn_totals(c("row", "col")) %>% 
+  adorn_percentages() %>% 
+  adorn_pct_formatting() %>% 
+  adorn_ns() %>% 
+  adorn_title(placement = "combined")
+
+```
+
+# Crosstabs
+
+Sometimes you want your results in a crosstab. We can use the `tabyl` function in `janitor` package to make crosstabs automatically.
+
+Create a crosstab of `gender` and `health_gen`. 
+
+
+```{r}
+# YOUR CODE HERE
+```
+
+Add a `drop_na` before your line with `tabyl` to get rid of all NAs.
+
+```{r}
+# YOUR CODE HERE
+```
+
+
+`janitor` has a set of functions that all start with `adorn_` that add a number of things to our crosstabs. We call them after `tabyl`. For example, `adorn_totals`.
+
+Use the code above and then add totals using `adorn_totals` in the rows and columns.
+
+```{r}
+# YOUR CODE HERE
+```
+
+
+We can add `adorn_percentages` to add percentages.
+
+Use the code above and then add percentages using `adorn_percentages`.
+
+
+```{r}
+# YOUR CODE HERE
+```
+
+
+
+We can then format these percentages using `adorn_pct_formatting`.
+
+Use the code above and then format the percentages using `adorn_pct_formatting`. Add arguments so that the percentages are rounded to 1 digit. Note that R uses the "half to even" rounding method by default so if you want to round, say, 14.5 to 15 you must use the `rounding` argument (type ?adorn_pct_formatting in the console to learn more). 
+
+```{r}
+# YOUR CODE HERE
+```
+
+
+
+If we want to include the n alongside percentages, we can use `adorn_ns`.
+
+Use the code above and then add a line with `adorn_ns` to include the n.
+
+```{r}
+# YOUR CODE HERE
+```
+
+
+
+We can add titles to our crosstabs using `adorn_title`.
+
+Use the code above and then add a title using `adorn_title`. Use the `placement` argument and see what you get.
+
+```{r}
+# YOUR CODE HERE
+```
+
+
+
+
+We can also do three (or more) way crosstabs automatically by adding more variables to the `tabyl` function.
+
+Use the code above, but add a third variable (`age_decade`) to the line with `drop_na` and the line with `tabyl`. You should get a series of crosstabs.
+
+```{r}
+# YOUR CODE HERE
+```
+
 
 
